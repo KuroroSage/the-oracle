@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE ORACLE — what builders believe</title>
+<meta name="description" content="The daily consensus of the people building AI. Three questions a morning, answered inside their coding agents. Calibration is earned, never bought.">
+<meta property="og:title" content="THE ORACLE — what builders believe">
+<meta property="og:description" content="The daily consensus of the people building AI. Three questions a morning, sixty seconds, inside the coding agent. No money, ever — reputation.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aimmo-oracle.vercel.app">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230C0B09'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23D9A03F' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23D9A03F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #0C0B09;
+    --panel: #121009;
+    --ink: #EDE6D6;
+    --dim: #9A937f;
+    --faint: #5E5949;
+    --line: rgba(237, 230, 214, 0.14);
+    --hairline: rgba(237, 230, 214, 0.09);
+    --gold: #D9A03F;
+    --green: #8DB580;
+    --red: #C7604F;
+    --serif: "Fraunces", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--paper); }
+  body {
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(1200px 500px at 50% -10%, rgba(217, 160, 63, 0.05), transparent 60%),
+      var(--paper);
+  }
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- masthead ---------- */
+  header { padding: 56px 0 0; text-align: center; }
+  .eye { margin-bottom: 26px; }
+  .brand {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(58px, 11vw, 128px);
+    letter-spacing: 0.01em;
+    line-height: 0.95;
+    font-variation-settings: "opsz" 144;
+  }
+  .brand em { font-style: italic; color: var(--gold); }
+  .tagline {
+    margin-top: 18px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(17px, 2.6vw, 21px);
+    color: var(--dim);
+    font-weight: 400;
+  }
+  .issue {
+    margin: 30px auto 0;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+  .issue b { color: var(--ink); font-weight: 500; }
+  .issue .gold { color: var(--gold); }
+
+  /* ---------- sections ---------- */
+  section { padding-top: 64px; }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
+    margin-bottom: 22px;
+  }
+  .sec-head h2 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .sec-head .note { font-size: 11px; color: var(--faint); letter-spacing: 0.06em; }
+
+  /* ---------- daily three cards ---------- */
+  .qcard {
+    display: grid;
+    grid-template-columns: 1fr 190px;
+    gap: 28px;
+    padding: 26px 0 24px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .qcard:last-child { border-bottom: none; }
+  .qmeta {
+    display: flex;
+    gap: 14px;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 10px;
+  }
+  .qmeta .domain { color: var(--gold); }
+  .qtitle {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(20px, 3vw, 25px);
+    line-height: 1.3;
+    letter-spacing: 0.002em;
+    max-width: 560px;
+  }
+  .qres { margin-top: 12px; font-size: 11px; color: var(--faint); line-height: 1.7; max-width: 540px; }
+  .qres b { color: var(--dim); font-weight: 500; }
+
+  .consensus { text-align: right; align-self: center; }
+  .consensus .num {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 58px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .consensus .num small { font-size: 26px; color: var(--dim); font-weight: 400; }
+  .consensus .sub { margin-top: 8px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
+  .delta-up { color: var(--green); }
+  .delta-down { color: var(--red); }
+
+  .sealed {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 7px 14px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    transform: rotate(-4deg);
+  }
+  .sealed-sub { margin-top: 12px; font-size: 10.5px; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ---------- board rows / receipts ---------- */
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 18px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 12.5px;
+  }
+  .row .t { color: var(--ink); flex: 1; }
+  .row .t .d { color: var(--faint); margin-right: 10px; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .row .v { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--dim); }
+  .stamp {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    padding: 3px 9px;
+    border: 1px solid currentColor;
+    margin-left: 10px;
+  }
+  .stamp.yes { color: var(--green); }
+  .stamp.no { color: var(--red); }
+
+  /* ---------- leaderboard ---------- */
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th {
+    text-align: left; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--faint);
+    padding: 0 10px 10px 0; border-bottom: 1px solid var(--line);
+  }
+  td { padding: 11px 10px 11px 0; border-bottom: 1px solid var(--hairline); font-size: 12.5px; }
+  td.r, th.r { text-align: right; padding-right: 0; }
+  .handle { color: var(--ink); font-weight: 500; }
+  .fnum { color: var(--faint); font-size: 10.5px; margin-left: 6px; }
+  .empty {
+    padding: 30px 0 6px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--dim);
+  }
+
+  /* ---------- play ---------- */
+  .play-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 22px; }
+  .step { background: var(--paper); padding: 22px 20px 24px; }
+  .step .n { font-family: var(--serif); font-style: italic; font-size: 30px; color: var(--gold); line-height: 1; }
+  .step h3 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin: 12px 0 8px; font-weight: 600; }
+  .step p { font-size: 11.5px; color: var(--dim); line-height: 1.7; }
+  pre {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--ink);
+    position: relative;
+  }
+  pre .c { color: var(--faint); }
+  .copy {
+    position: absolute; top: 10px; right: 10px;
+    background: none; border: 1px solid var(--line); color: var(--dim);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em;
+    padding: 4px 10px; cursor: pointer; text-transform: uppercase;
+  }
+  .copy:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* ---------- constitution / footer ---------- */
+  .laws {
+    margin-top: 64px;
+    border-top: 1px solid var(--line);
+    padding: 30px 0 70px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    font-size: 11px;
+    color: var(--dim);
+    line-height: 1.75;
+  }
+  .laws b { display: block; color: var(--gold); font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; font-size: 10px; margin-bottom: 6px; }
+  .colophon { text-align: center; color: var(--faint); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; padding-bottom: 56px; }
+
+  @media (max-width: 640px) {
+    .qcard { grid-template-columns: 1fr; gap: 14px; }
+    .consensus { text-align: left; }
+    .play-grid, .laws { grid-template-columns: 1fr; }
+    .sec-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .sec-head h2 { white-space: nowrap; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eye">
+      <svg width="46" height="46" viewBox="0 0 46 46" fill="none" aria-hidden="true">
+        <circle cx="23" cy="23" r="14" stroke="#D9A03F" stroke-width="1.5"/>
+        <circle cx="23" cy="23" r="4.5" fill="#D9A03F"/>
+        <line x1="23" y1="1" x2="23" y2="7" stroke="#D9A03F" stroke-width="1.5"/>
+        <line x1="23" y1="39" x2="23" y2="45" stroke="#D9A03F" stroke-width="1.5"/>
+        <line x1="1" y1="23" x2="7" y2="23" stroke="#D9A03F" stroke-width="1.5"/>
+        <line x1="39" y1="23" x2="45" y2="23" stroke="#D9A03F" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <h1 class="brand">THE <em>ORACLE</em></h1>
+    <p class="tagline">What the people building AI believe about what's coming.</p>
+    <div class="issue">
+      <span>DAY <b id="day">—</b></span>
+      <span id="date">—</span>
+      <span><b id="n-builders" class="gold">—</b> BUILDERS</span>
+      <span><b id="n-forecasts">—</b> FORECASTS FILED</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <h2>The Daily Three</h2>
+      <span class="note">same three questions for everyone · consensus opens at five forecasters</span>
+    </div>
+    <div id="daily"><p class="empty">Consulting the archive…</p></div>
+  </section>
+
+  <section id="sec-board" hidden>
+    <div class="sec-head">
+      <h2>The Open Board</h2>
+      <span class="note">positions from previous days · hold or update, one move per day</span>
+    </div>
+    <div id="board"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Receipts</h2>
+      <span class="note">resolved against sources named in advance</span>
+    </div>
+    <div id="receipts"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>The Ranked</h2>
+      <span class="note">rankings unlock at thirty resolved forecasts</span>
+    </div>
+    <div id="ranked"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Play</h2>
+      <span class="note">sixty seconds a day, inside your coding agent</span>
+    </div>
+    <div class="play-grid">
+      <div class="step"><div class="n">i.</div><h3>Install</h3><p>Clone the repo, build the MCP server. Works with Claude Code today; any MCP-speaking agent tomorrow.</p></div>
+      <div class="step"><div class="n">ii.</div><h3>Answer</h3><p>Each morning your agent brings the day's three questions. A probability (1–99) and one line of reasoning. Crowd stays hidden until you commit.</p></div>
+      <div class="step"><div class="n">iii.</div><h3>Earn it</h3><p>Questions resolve against pre-named sources. Your calibration curve becomes your reputation — unfakeable, unbuyable, earned one receipt at a time.</p></div>
+    </div>
+    <pre id="install"><span class="c"># the founding hundred get the repo by invite — one seat per builder</span>
+git clone &lt;your invite link&gt; && cd aimmo
+npm install && npm run build -w @aimmo/oracle-mcp
+<span class="c"># then open claude code in that folder and say:</span>
+join the oracle as &lt;your_handle&gt;<button class="copy" onclick="copyInstall(this)">copy</button></pre>
+  </section>
+
+  <div class="laws">
+    <div><b>No money, ever</b>No stakes, no prizes, no tokens. Reputation, not gambling. The moment value is redeemable this becomes a casino, and casinos don't get trusted with consensus.</div>
+    <div><b>Aggregates only</b>Individual forecasts are never published, sold, or shared — at any price. Crowd numbers appear only past five forecasters. Your data exports and deletes on request.</div>
+    <div><b>Resolution is sacred</b>Every question names its source before publication. Ambiguity is voided with a public postmortem, never adjudicated. One cooked resolution would end this — so none ever will be.</div>
+  </div>
+
+  <p class="colophon">The Oracle · a game of judgment for the agent era · answers via MCP · est. July 2026</p>
+
+</div>
+<script>
+const URL_ = "https://hzasywatskzapyfegnfb.supabase.co";
+const KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6YXN5d2F0c2t6YXB5ZmVnbmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwNDUyNjMsImV4cCI6MjA5ODYyMTI2M30.CYFw_1qVkIUcAXIM0cCrIwlfzS8mEQRP-M6dwlnFvB8";
+const H = { apikey: KEY, Authorization: "Bearer " + KEY };
+const get = (p) => fetch(URL_ + "/rest/v1/" + p, { headers: H }).then((r) => r.json());
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+const LAUNCH = new Date("2026-07-03T00:00:00Z");
+document.getElementById("day").textContent = String(Math.max(1, Math.floor((Date.now() - LAUNCH) / 864e5) + 1)).padStart(3, "0");
+// edition is stamped in game time (UTC) — the day the questions belong to
+document.getElementById("date").textContent = new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).toUpperCase();
+
+function consensusBlock(q) {
+  if (q.crowd_percent == null) {
+    return `<div class="consensus"><span class="sealed">Sealed</span><div class="sealed-sub">${q.n} of 5 forecasters</div></div>`;
+  }
+  const prev = q.crowd_percent_24h_ago ?? q.crowd_percent;
+  const d = q.crowd_percent - prev;
+  const delta = d === 0 ? `<div class="sub">unchanged overnight</div>`
+    : `<div class="sub ${d > 0 ? "delta-up" : "delta-down"}">${d > 0 ? "▲" : "▼"} ${Math.abs(d)} overnight</div>`;
+  return `<div class="consensus"><div class="num">${q.crowd_percent}<small>%</small></div>${delta}<div class="sub">n = ${q.n}</div></div>`;
+}
+
+function dailyCard(q, i) {
+  return `<div class="qcard">
+    <div>
+      <div class="qmeta"><span>Q·${String(i + 1).padStart(2, "0")}</span><span class="domain">${esc(q.domain)}</span><span>locks ${new Date(q.lock_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span></div>
+      <div class="qtitle">${esc(q.title)}</div>
+      <div class="qres"><b>Resolution:</b> ${esc(q.resolution_source)}</div>
+    </div>
+    ${consensusBlock(q)}
+  </div>`;
+}
+
+function boardRow(q) {
+  const v = q.crowd_percent == null ? `sealed · n=${q.n}` :
+    `${q.crowd_percent}%` + (q.crowd_percent_24h_ago != null && q.crowd_percent !== q.crowd_percent_24h_ago
+      ? ` <span class="${q.crowd_percent > q.crowd_percent_24h_ago ? "delta-up" : "delta-down"}">(${q.crowd_percent > q.crowd_percent_24h_ago ? "▲" : "▼"}${Math.abs(q.crowd_percent - q.crowd_percent_24h_ago)})</span>`
+      : "") + ` · n=${q.n}`;
+  return `<div class="row"><span class="t"><span class="d">${esc(q.domain)}</span>${esc(q.title)}</span><span class="v">${v}</span></div>`;
+}
+
+function receiptRow(q) {
+  return `<div class="row"><span class="t"><span class="d">${esc(q.domain)}</span>${esc(q.title)}</span>
+    <span class="v">crowd said ${q.crowd_percent ?? "—"}%<span class="stamp ${q.outcome ? "yes" : "no"}">${q.outcome ? "YES" : "NO"}</span></span></div>`;
+}
+
+function copyInstall(btn) {
+  const text = document.getElementById("install").innerText.replace(/copy$/, "").trim();
+  navigator.clipboard.writeText(text).then(() => { btn.textContent = "copied"; setTimeout(() => (btn.textContent = "copy"), 1500); });
+}
+
+(async () => {
+  try {
+    const [stats] = await get("public_stats?select=*");
+    document.getElementById("n-builders").textContent = stats.builders;
+    document.getElementById("n-forecasts").textContent = stats.forecasts;
+  } catch {}
+
+  const dash = await get("public_dashboard?select=*&order=publish_date.desc,domain.asc");
+  const todayUTC = new Date().toISOString().slice(0, 10);
+  const live = dash.filter((q) => q.status === "live");
+  const daily = live.filter((q) => q.publish_date === todayUTC);
+  const older = live.filter((q) => q.publish_date !== todayUTC);
+  const resolved = dash.filter((q) => q.status === "resolved").slice(0, 12);
+
+  document.getElementById("daily").innerHTML =
+    (daily.length ? daily : live.slice(0, 3)).map(dailyCard).join("") ||
+    `<p class="empty">No questions on the board. The Oracle rests.</p>`;
+
+  if (older.length && daily.length) {
+    document.getElementById("sec-board").hidden = false;
+    document.getElementById("board").innerHTML = older.map(boardRow).join("");
+  }
+
+  document.getElementById("receipts").innerHTML =
+    resolved.map(receiptRow).join("") ||
+    `<p class="empty">Nothing has resolved yet. The receipts are coming — every question here answers to a source named in advance.</p>`;
+
+  const board = await get("public_leaderboard?select=*&order=points.desc&limit=20");
+  document.getElementById("ranked").innerHTML = board.length
+    ? `<table><tr><th>#</th><th>Oracle</th><th class="r">Points</th><th class="r">Resolved</th><th class="r">Brier</th><th class="r">Streak</th></tr>` +
+      board.map((u, i) => `<tr><td>${i + 1}</td><td><span class="handle">@${esc(u.handle)}</span><span class="fnum">№${u.founding_number}</span></td><td class="r">${u.points}</td><td class="r">${u.resolved}</td><td class="r">${u.mean_brier}</td><td class="r">${u.streak}</td></tr>`).join("") +
+      `</table>`
+    : `<p class="empty">Nobody has survived thirty resolutions yet. The first names on this board are being earned right now.</p>`;
+})();
+</script>
+</body>
+</html>

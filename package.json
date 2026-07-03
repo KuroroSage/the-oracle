@@ -1,0 +1,7 @@
+{
+  "name": "the-oracle",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
