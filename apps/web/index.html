@@ -9,7 +9,11 @@
 <meta property="og:description" content="The daily consensus of the people building AI. Three questions a morning, sixty seconds, inside the coding agent. No money, ever — reputation.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://aimmo-oracle.vercel.app">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://aimmo-oracle.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aimmo-oracle.vercel.app/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230C0B09'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23D9A03F' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23D9A03F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -315,8 +319,8 @@
       <div class="step"><div class="n">ii.</div><h3>Answer</h3><p>Each morning your agent brings the day's three questions. A probability (1–99) and one line of reasoning. Crowd stays hidden until you commit.</p></div>
       <div class="step"><div class="n">iii.</div><h3>Earn it</h3><p>Questions resolve against pre-named sources. Your calibration curve becomes your reputation — unfakeable, unbuyable, earned one receipt at a time.</p></div>
     </div>
-    <pre id="install"><span class="c"># the founding hundred get the repo by invite — one seat per builder</span>
-git clone &lt;your invite link&gt; && cd aimmo
+    <pre id="install"><span class="c"># in your terminal — founding numbers under 500 are forever</span>
+git clone https://github.com/KuroroSage/the-oracle && cd the-oracle
 npm install && npm run build -w @aimmo/oracle-mcp
 <span class="c"># then open claude code in that folder and say:</span>
 join the oracle as &lt;your_handle&gt;<button class="copy" onclick="copyInstall(this)">copy</button></pre>
@@ -357,7 +361,7 @@ function consensusBlock(q) {
 function dailyCard(q, i) {
   return `<div class="qcard">
     <div>
-      <div class="qmeta"><span>Q·${String(i + 1).padStart(2, "0")}</span><span class="domain">${esc(q.domain)}</span><span>locks ${new Date(q.lock_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span></div>
+      <div class="qmeta"><span>Q·${String(i + 1).padStart(2, "0")}</span><span class="domain">${esc(q.domain)}</span><span>locks ${new Date(q.lock_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span><a href="card.html?q=${encodeURIComponent(q.slug)}" style="color:var(--faint)">card ↗</a></div>
       <div class="qtitle">${esc(q.title)}</div>
       <div class="qres"><b>Resolution:</b> ${esc(q.resolution_source)}</div>
     </div>

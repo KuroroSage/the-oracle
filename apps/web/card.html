@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Oracle — question card</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230C0B09'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23D9A03F' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23D9A03F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh; background: #060505;
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .card {
+    width: 900px; aspect-ratio: 1.91;
+    background: radial-gradient(700px 320px at 50% -8%, rgba(217,160,63,.07), transparent 60%), #0C0B09;
+    border: 1px solid rgba(237,230,214,.14);
+    color: #EDE6D6;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 44px 52px 36px;
+  }
+  .top { display: flex; justify-content: space-between; align-items: center; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #5E5949; }
+  .top .b { color: #D9A03F; }
+  .title { font-family: "Fraunces", serif; font-weight: 500; font-size: clamp(22px, 3.4vw, 34px); line-height: 1.28; max-width: 620px; }
+  .mid { display: flex; justify-content: space-between; align-items: center; gap: 40px; }
+  .num { font-family: "Fraunces", serif; font-weight: 600; font-size: 96px; line-height: 1; text-align: right; white-space: nowrap; }
+  .num small { font-size: 40px; color: #9A937F; font-weight: 400; }
+  .sub { margin-top: 10px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #5E5949; text-align: right; }
+  .sealed { border: 1px solid #D9A03F; color: #D9A03F; padding: 10px 20px; font-size: 14px; letter-spacing: .3em; text-transform: uppercase; transform: rotate(-4deg); display: inline-block; }
+  .delta-up { color: #8DB580; } .delta-down { color: #C7604F; }
+  .stamp { border: 1.5px solid currentColor; padding: 8px 18px; font-size: 22px; font-weight: 600; letter-spacing: .3em; display: inline-block; transform: rotate(-4deg); }
+  .bot { display: flex; justify-content: space-between; align-items: baseline; font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: #5E5949; border-top: 1px solid rgba(237,230,214,.1); padding-top: 18px; }
+  .bot .brand { color: #EDE6D6; } .bot .brand em { color: #D9A03F; font-style: normal; }
+  @media (max-width: 940px) { .card { width: 100%; aspect-ratio: auto; gap: 34px; } .num { font-size: 64px; } }
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="top"><span id="meta">—</span><span class="b" id="lock">—</span></div>
+    <div class="title" id="title">Consulting the archive…</div>
+    <div class="mid">
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5E5949;max-width:300px;line-height:1.9" id="res"></div>
+      <div id="consensus"></div>
+    </div>
+    <div class="bot"><span class="brand">THE <em>ORACLE</em></span><span>aimmo-oracle.vercel.app · no money, ever</span></div>
+  </div>
+<script>
+const URL_ = "https://hzasywatskzapyfegnfb.supabase.co";
+const KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6YXN5d2F0c2t6YXB5ZmVnbmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwNDUyNjMsImV4cCI6MjA5ODYyMTI2M30.CYFw_1qVkIUcAXIM0cCrIwlfzS8mEQRP-M6dwlnFvB8";
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+(async () => {
+  const slug = new URLSearchParams(location.search).get("q");
+  if (!slug) { document.getElementById("title").textContent = "No question specified."; return; }
+  const rows = await fetch(`${URL_}/rest/v1/public_dashboard?select=*&slug=eq.${encodeURIComponent(slug)}`,
+    { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then((r) => r.json());
+  const q = rows[0];
+  if (!q) { document.getElementById("title").textContent = "Unknown question."; return; }
+  document.title = "The Oracle — " + q.title;
+  document.getElementById("meta").innerHTML = `<span class="b">${esc(q.domain)}</span> &nbsp;·&nbsp; published ${q.publish_date}`;
+  document.getElementById("lock").textContent = q.status === "resolved" ? "RESOLVED" : "locks " + new Date(q.lock_at).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  document.getElementById("title").textContent = q.title;
+  document.getElementById("res").textContent = "Resolution: " + q.resolution_source;
+  const c = document.getElementById("consensus");
+  if (q.status === "resolved") {
+    c.innerHTML = `<div style="text-align:right"><span class="stamp ${q.outcome ? "delta-up" : "delta-down"}">${q.outcome ? "YES" : "NO"}</span><div class="sub">crowd said ${q.crowd_percent ?? "—"}% · n=${q.n}</div></div>`;
+  } else if (q.crowd_percent == null) {
+    c.innerHTML = `<div style="text-align:right"><span class="sealed">Sealed</span><div class="sub">${q.n} of 5 forecasters</div></div>`;
+  } else {
+    const prev = q.crowd_percent_24h_ago ?? q.crowd_percent;
+    const d = q.crowd_percent - prev;
+    c.innerHTML = `<div><div class="num">${q.crowd_percent}<small>%</small></div>
+      <div class="sub">${d !== 0 ? `<span class="${d > 0 ? "delta-up" : "delta-down"}">${d > 0 ? "▲" : "▼"}${Math.abs(d)} overnight</span> · ` : ""}n=${q.n}</div></div>`;
+  }
+})();
+</script>
+</body>
+</html>

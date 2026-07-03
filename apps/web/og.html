@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: radial-gradient(900px 420px at 50% -8%, rgba(217,160,63,.07), transparent 60%), #0C0B09;
+    color: #EDE6D6;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .brand { font-family: "Fraunces", serif; font-weight: 500; font-size: 148px; line-height: 1; letter-spacing: .01em; font-variation-settings: "opsz" 144; }
+  .brand em { font-style: italic; color: #D9A03F; }
+  .tag { font-family: "Fraunces", serif; font-style: italic; font-size: 30px; color: #9A937F; margin-top: 26px; }
+  .rule { width: 640px; border-top: 1px solid rgba(237,230,214,.16); margin: 38px 0 22px; }
+  .laws { font-size: 15px; letter-spacing: .24em; color: #5E5949; text-transform: uppercase; }
+  .laws b { color: #D9A03F; font-weight: 500; }
+  .eye { margin-bottom: 34px; }
+</style>
+</head>
+<body>
+  <svg class="eye" width="64" height="64" viewBox="0 0 46 46" fill="none">
+    <circle cx="23" cy="23" r="14" stroke="#D9A03F" stroke-width="1.5"/>
+    <circle cx="23" cy="23" r="4.5" fill="#D9A03F"/>
+    <line x1="23" y1="1" x2="23" y2="7" stroke="#D9A03F" stroke-width="1.5"/>
+    <line x1="23" y1="39" x2="23" y2="45" stroke="#D9A03F" stroke-width="1.5"/>
+    <line x1="1" y1="23" x2="7" y2="23" stroke="#D9A03F" stroke-width="1.5"/>
+    <line x1="39" y1="23" x2="45" y2="23" stroke="#D9A03F" stroke-width="1.5"/>
+  </svg>
+  <div class="brand">THE <em>ORACLE</em></div>
+  <div class="tag">What the people building AI believe about what's coming.</div>
+  <div class="rule"></div>
+  <div class="laws">three questions a morning · <b>no money, ever</b> · calibration is earned</div>
+</body>
+</html>
