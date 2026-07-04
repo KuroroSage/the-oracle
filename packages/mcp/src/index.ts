@@ -154,7 +154,8 @@ server.tool(
       return ok(
         `✓ locked ${r.locked}% on ${r.question}\n` +
           `crowd: ${r.crowd_percent}% (n=${r.crowd_n}) — revealed now that you've answered\n` +
-          `streak: ${r.streak} · ${left}`
+          `streak: ${r.streak} · ${left}\n` +
+          `share your position: https://aimmo-oracle.vercel.app/card.html?q=${encodeURIComponent(r.question)}`
       );
     } catch (e) {
       return err(e);
